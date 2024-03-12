@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+      int n=nums.size();
+      int start=0;
+      int end=n-1;
+      while(start<=end){
+          //normal condi for bs
+         int  mid=(start+end)/2;
+          if(nums[mid]==target)
+          {return mid;}
+          // ab dekhte hai mid tak sort hai ki nahi left mai aur right mai
+          else if(nums[mid]>=nums[start])// matalb sorted hai yaha tak
+          {
+              //ab target find karna hai range mai
+              if(target>=nums[start] && target<nums[mid]){
+                  //mil gaya target to
+                  end=mid-1;
+              }
+              else //nahi mila to
+                   //negalete left side
+               {   start=mid+1; }
+                   
+                }
+
+          else               //matalab right mai sorted hai
+          {
+              if(target>nums[mid] && target<=nums[end]){
+                  //mil gaya
+                  start=mid+1;
+              }
+              else
+             { end=mid-1;}
+          }
+
+      }
+       return -1;
+        
+    }
+};
