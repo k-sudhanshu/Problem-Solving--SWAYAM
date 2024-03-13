@@ -1,0 +1,35 @@
+
+class Solution {
+public:
+bool s(int d,int k,vector<int> &stalls){
+   // int x=stalls[0];
+    int x=stalls[0];
+    int cnt=1;
+    for(int i=1;i<stalls.size();i++){
+        if(stalls[i]-x>=d){
+            cnt++;
+            x=stalls[i];
+        }
+    }
+    if(cnt>=k)return 1;
+    return 0;
+}
+    int solve(int n, int k, vector<int> &stalls) {
+    
+        //brute force
+        //1  2 4 8 9
+        sort(stalls.begin(),stalls.end());
+         
+        int i=1;//min ans;
+        int j=stalls[n-1]-stalls[0];
+        for(int i=1;i<=j;i++){
+            //pahle i ke liye cheack karte hai
+            if(s(i,k,stalls)){
+                continue;
+            }
+            else{
+                return i-1;
+            }
+        }
+    }
+};
