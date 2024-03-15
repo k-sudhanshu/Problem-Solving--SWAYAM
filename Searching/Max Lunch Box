@@ -1,0 +1,51 @@
+// Online C++ compiler to run C++ program online
+#include <bits/stdc++.h>
+using namespace std;
+bool cheack(int mid,vector<int>&freq,int A){
+    int cnt=0;
+    for(int i=0;i<freq.size();i++){
+        if(freq[i]>=mid){
+            cnt++;
+        }
+    }
+    if(cnt>=A){
+        return true;
+    }
+    return false;
+}
+int main() {
+    // max no of lunch box
+    int n;
+    cin>>n;
+    int A;
+    cin>>A;
+    int lunch[n];
+    for(int i=0;i<n;i++){
+        cin>>lunch[i];
+    }
+    //create freq array
+    vector<int>freq;
+    unordered_map<int,int>mp;
+    int minf=INT_MAX;
+    int maxf=0;
+    for(int i=0;i<n;i++){
+        mp[lunch[i]]++;
+    }
+    for(auto i:mp){
+        freq.push_back(i.second);
+        minf=min(minf,i.second);
+        maxf=max(maxf,i.second);
+    }
+    
+while(minf<=maxf){
+    int mid=(minf+maxf)/2;
+    if(cheack(mid,freq,A)){
+        minf=mid+1;
+    }
+    else{
+       maxf=mid-1;
+    }
+}
+cout<<maxf;
+    return 0;
+}
