@@ -1,0 +1,8 @@
+int hot( TreeNode<int> *root){
+    if(root==NULL)return 0;
+    return 1+max(hot(root->left),hot(root->right));
+}
+int heightOfBinaryTree(TreeNode<int> *root)
+{
+	return hot(root);
+}
