@@ -1,0 +1,31 @@
+class Solution{
+  public:
+    /*You are required to complete this function*/
+    int getLevelDiff(Node *root)
+    {
+       //level order traversal
+       queue<Node*>q;
+       q.push(root);
+       int ans;
+       Node *x;
+       int cnt=0,even=0,odd=0;
+       while(!q.empty()){
+         
+            int n=q.size();
+           for(int i=0;i<n;i++){
+              x=q.front();
+               q.pop();
+            if(x->left!=NULL)q.push(x->left);
+            if(x->right!=NULL)q.push(x->right);
+            if(cnt%2==0)even+=x->data;
+            if(cnt%2!=0){
+                odd+=x->data;
+            }
+          }
+              cnt++;
+        }
+      ans=even-odd;
+       return ans;
+      
+    }
+};
