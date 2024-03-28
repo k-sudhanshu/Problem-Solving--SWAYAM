@@ -1,0 +1,34 @@
+class Solution {
+public:
+void vod(TreeNode* r,int d,int &mi,int &ma){
+    if(r==NULL)return;
+    mi=min(mi,d);
+    ma=max(ma,d);
+    vod(r->left,d-1,mi,ma);
+    vod(r->right,d+1,mi,ma);
+}
+void ans(vector<vector<int>>&v,TreeNode* r,int d,int &mi,int &ma){
+    if(r==NULL)return;
+    v[d-mi].push_back(r->val);
+    int x=v[d-mi].size();
+    ans(v,r->right,d+1,mi,ma);
+    ans(v,r->left,d-1,mi,ma);
+}
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        //calculate minimum and maximum distance 
+
+        //size of vector array maxi-mini+1;
+        
+       int mini=0,maxi=0,dis=0;
+        vod(root,dis,mini,maxi);
+        dis=maxi-mini+1;
+        cout<<dis<<" "<<mini<<" "<<maxi<<" ";
+        vector<vector<int>>v(dis);
+        int d=0;
+        
+        ans(v,root,d,mini,maxi);
+       
+        return v;
+        
+    }
+};
