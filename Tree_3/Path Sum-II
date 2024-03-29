@@ -1,0 +1,21 @@
+class Solution {
+public:
+void ps(TreeNode* root,int sum, vector<int>&v,vector<vector<int>>&ans){
+    if(root==NULL){return;}
+    v.push_back(root->val);
+    if(root->val==sum && root->left==NULL && root->right==NULL){
+        ans.push_back(v);
+    }
+    ps(root->left,sum-root->val,v,ans);
+      ps(root->right,sum-root->val,v,ans);
+      v.pop_back();
+}
+
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        vector<int>v;
+        vector<vector<int>>ans;
+        ps(root,sum,v,ans);
+        return ans;
+        
+    }
+};
