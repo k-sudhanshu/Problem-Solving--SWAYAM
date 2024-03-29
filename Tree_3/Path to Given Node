@@ -1,0 +1,24 @@
+void findpath(TreeNode* A,int B,vector <int>&v,vector <int>&ans)
+ {  
+     if(A==NULL)
+     {  
+         return;
+     }
+     v.push_back(A->val);
+     if(A->val==B)
+    { ans=v;
+     return;
+     }
+     
+          path(A->left,B,v,ans);
+           path(A->right,B,v,ans);
+      v.pop_back();
+ }
+   
+vector<int> Solution::solve(TreeNode* A, int B) {
+    vector<int>v;
+    vector<int>ans;
+    dindpath(A,B,v,ans);
+    return  ans;
+   
+}
