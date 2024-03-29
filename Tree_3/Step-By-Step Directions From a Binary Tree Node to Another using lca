@@ -1,0 +1,44 @@
+class Solution {
+    TreeNode* lca(TreeNode* root, const int start, const int dest) {
+        if(!root || root->val == start || root->val == dest) return root;
+        TreeNode* left = lca(root->left, start, dest);
+        TreeNode* right = lca(root->right, start, dest);
+        if(!right) return l;
+        if(!left) return r;
+        return root;
+    }
+
+    bool dfs(TreeNode* root, const int node, char ch, string& path) {
+        if(root == nullptr) return false;
+
+        if(ch != '#') path.push_back(ch);
+        if(root->val == node) {
+            return true;
+        }
+
+        // If any is true,don't pop
+        if(dfs(root->left, node, 'L', path)) return true;
+        if(dfs(root->right, node, 'R', path)) return true;
+
+        path.pop_back();
+        return false;
+    }
+
+public:
+    string getDirections(TreeNode* root, int startValue, int destValue) {
+        // Get the lowest common ancestor node
+        TreeNode* start = lca(root, startValue, destValue);
+
+        string st = "";  // ToStart path
+        dfs(start, startValue, '#', st); 
+      // Since we only need the depth, this can be optimized.
+
+        string dt = "";  // ToDest path
+        dfs(start, destValue, '#', dt);
+
+        string ans(st.size(), 'U');  
+     // The start path transform to U. root == start case is covered.
+        ans += dt;
+
+        return ans;
+    }
