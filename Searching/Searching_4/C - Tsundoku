@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int countBooks(vector<long long>& pb, long long k) {
+    int l = 0;
+    int h = pb.size() - 1;
+    int ans = 0;
+    while (l <= h) {
+        int mid = l + (h - l) / 2;
+        if (pb[mid] <= k) {
+            ans = mid;
+            l = mid + 1;
+        } else {
+            h = mid - 1;
+        }
+    }
+    return ans;
+}
+
+int main() {
+    int n, m;
+    long long k;
+    cin >> n >> m >> k;
+    vector<long long> prea(n + 1, 0);
+    vector<long long> preb(m + 1, 0);
+
+    for (int i = 1; i <= n; i++) {
+        cin >> prea[i];
+        prea[i] += prea[i - 1];
+    }
+
+    for (int i = 1; i <= m; i++) {
+        cin >> preb[i];
+        preb[i] += preb[i - 1];
+    }
+
+    int max_b = 0;
+
+    for (int i = 0; i <= n; i++) {
+        long long rc = k - prea[i];
+        if (rc < 0) {
+            break;
+        }
+        int b = countBooks(preb, rc);
+        max_b = max(max_b, i + b);
+    }
+
+    cout << max_b << endl;
+
+    return 0;
+}
