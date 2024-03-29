@@ -3,10 +3,10 @@ vector<int> findBottomView(Node* root)
 		vector<int> ans;
 		if(root == NULL) return ans;
 		map<int,int>mp; 
-     // col, val;
+                // col, val;
 		queue<pair<Node*, int>>q; 
-    // node, column values
-		Q.push({root, 0});
+                // node, column values
+		q.push({root, 0});
 		while(!q.empty()){
 			auto it = q.front();
 			q.pop();
