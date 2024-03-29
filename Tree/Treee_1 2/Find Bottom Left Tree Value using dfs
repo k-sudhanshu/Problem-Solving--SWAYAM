@@ -1,0 +1,17 @@
+class Solution {
+public:
+int ans=0,x=-1;
+void t(TreeNode* root,int level){
+     if(root==NULL)return;
+     if(level>x){
+        ans=root->val;
+        x=level;
+     }
+     t(root->left,level+1);
+     t(root->right,level+1);
+}
+    int findBottomLeftValue(TreeNode* root) {
+           t(root,0);
+           return ans;
+    }
+};
