@@ -1,0 +1,15 @@
+
+class Solution {
+public:
+bool path(TreeNode* root, int sum){
+    if(root==NULL)return 0;
+    sum=sum-root->val;
+    if(sum==0 && root->left==NULL && root->right==NULL)return true;
+    return path(root->left,sum)|| path(root->right,sum);
+
+}
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        return path(root,targetSum);
+        
+    }
+};
