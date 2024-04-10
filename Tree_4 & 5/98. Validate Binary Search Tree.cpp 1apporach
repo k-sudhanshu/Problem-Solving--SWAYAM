@@ -1,0 +1,12 @@
+class Solution {
+public:
+bool vaild(TreeNode* root,long x,long y){
+    if(root==NULL)return true;
+    if(root->val<=x or root->val>=y)return false;
+    return vaild(root->left,x,root->val)&&vaild(root->right,root->val,y);
+}
+    bool isValidBST(TreeNode* root) {
+    return vaild(root,LONG_MIN,LONG_MAX);
+        
+    }
+};
