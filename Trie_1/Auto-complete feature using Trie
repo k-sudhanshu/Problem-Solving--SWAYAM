@@ -1,0 +1,96 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int ALPHABET_SIZE = 26;
+
+class TrieNode {
+public:
+    TrieNode* children[26];
+    bool isEnd;
+
+    TrieNode() {
+        isEnd = false;
+        for (int i = 0; i < ALPHABET_SIZE; ++i)
+            children[i] = nullptr;
+    }
+};
+
+class Trie {
+private:
+    TrieNode* root;
+
+    int charToIndex(char c) {
+        return c - 'a';
+    }
+
+    bool isLastNode(TrieNode* node) {
+        for (int i = 0; i < ALPHABET_SIZE; ++i)
+            if (node->children[i])
+                return false;
+        return true;
+    }
+
+    void suggestionsRec(TrieNode* node, string prefix) {
+        if (node->isEnd)
+            cout << prefix << endl;
+        for (int i = 0; i < ALPHABET_SIZE; ++i)
+            if (node->children[i]) {
+                char child = 'a' + i;
+                suggestionsRec(node->children[i], prefix + child);
+            }
+    }
+
+public:
+    Trie() {
+        root = new TrieNode();
+    }
+
+    void insert(const string& key) {
+        TrieNode* p = root;
+        for (char c : key) {
+            int index = charToIndex(c);
+            if (!p->children[index])
+                p->children[index] = new TrieNode();
+            p = p->children[index];
+        }
+        p->isEnd = true;
+    }
+
+    int printAutoSuggestions(const string& query) {
+        TrieNode* p = root;
+        for (char c : query) {
+            int index = charToIndex(c);
+            if (!p->children[index])
+                return 0;
+            p = p->children[index];
+        }
+        if (isLastNode(p)) {
+            cout << query << endl;
+            return -1;
+        }
+        suggestionsRec(p, query);
+        return 1;
+    }
+};
+
+int main() {
+    Trie trie;
+    trie.insert("hello");
+    trie.insert("dog");
+    trie.insert("hell");
+    trie.insert("cat");
+    trie.insert("a");
+    trie.insert("hel");
+    trie.insert("help");
+    trie.insert("helps");
+    trie.insert("helping");
+    int comp = trie.printAutoSuggestions("hel");
+
+    if (comp == -1)
+        cout << "No other strings found with this prefix\n";
+    else if (comp == 0)
+        cout << "No string found with this prefix\n";
+
+    return 0;
+}
