@@ -19,3 +19,15 @@ public:
         
     }
 };
+/*int helper(vector<int>& nums, int idx, vector<int>& memo) {
+        if (idx >= nums.size()) return 0;
+        
+        if (memo[idx] != -1) return memo[idx];
+        
+        int robCur = nums[idx] + helper(nums, idx + 2, memo);
+        int skipCur = helper(nums, idx + 1, memo);
+        
+        memo[idx] = max(robCur, skipCur);
+        
+        return memo[idx];
+    }*/
