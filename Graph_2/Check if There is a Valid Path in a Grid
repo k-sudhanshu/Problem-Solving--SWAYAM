@@ -1,0 +1,43 @@
+
+class Solution {
+public:
+    vector<vector<bool>> visited;
+    vector<vector<int>> roads = {
+        {0, 1, 0, 1},
+        {1, 0, 1, 0},
+        {0, 0, 1, 1},
+        {0, 1, 1, 0},
+        {1, 0, 0, 1},
+        {1, 1, 0, 0}
+    };
+    vector<pair<int, int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    
+    bool connected(int a, int b, int k) {
+        return roads[a][k] && roads[b][(k + 2) % 4];
+    }
+    
+    bool dfs(vector<vector<int>>& grid, int i, int j) {
+        if (i == grid.size() - 1 && j == grid.front().size() - 1)
+            return true;
+        
+        if (!visited[i][j]) {
+            visited[i][j] = true;
+            
+            for (int k = 0; k < dirs.size(); ++k) {
+                int di = i + dirs[k].first;
+                int dj = j + dirs[k].second;
+                
+                if (di >= 0 && di < grid.size() && dj >= 0 && dj < grid.front().size() && 
+                    connected(grid[i][j] - 1, grid[di][dj] - 1, k) && dfs(grid, di, dj))
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    bool hasValidPath(vector<vector<int>>& grid) {
+        
+        return dfs(grid, 0, 0);
+    }
+};
